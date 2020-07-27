@@ -59,6 +59,35 @@ namespace Decibase_DbLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TrackArtists",
+                columns: table => new
+                {
+                    TrackId = table.Column<int>(nullable: false),
+                    ArtistId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrackArtists", x => new { x.TrackId, x.ArtistId });
+                    table.ForeignKey(
+                        name: "FK_TrackArtists_Artists_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artists",
+                        principalColumn: "ArtistId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrackArtists_Tracks_TrackId",
+                        column: x => x.TrackId,
+                        principalTable: "Tracks",
+                        principalColumn: "TrackId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrackArtists_ArtistId",
+                table: "TrackArtists",
+                column: "ArtistId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Tracks_AlbumId",
                 table: "Tracks",
@@ -67,6 +96,9 @@ namespace Decibase_DbLayer.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TrackArtists");
+
             migrationBuilder.DropTable(
                 name: "Artists");
 

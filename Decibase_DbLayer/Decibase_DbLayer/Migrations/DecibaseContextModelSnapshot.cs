@@ -89,11 +89,41 @@ namespace Decibase_DbLayer.Migrations
                     b.ToTable("Tracks");
                 });
 
+            modelBuilder.Entity("Decibase_DbLayer.TrackArtist", b =>
+                {
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrackId", "ArtistId");
+
+                    b.HasIndex("ArtistId");
+
+                    b.ToTable("TrackArtists");
+                });
+
             modelBuilder.Entity("Decibase_DbLayer.Track", b =>
                 {
                     b.HasOne("Decibase_DbLayer.Album", "Album")
                         .WithMany("Tracks")
                         .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Decibase_DbLayer.TrackArtist", b =>
+                {
+                    b.HasOne("Decibase_DbLayer.Artist", "Artist")
+                        .WithMany("Tracks")
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Decibase_DbLayer.Track", "Track")
+                        .WithMany("Artists")
+                        .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
