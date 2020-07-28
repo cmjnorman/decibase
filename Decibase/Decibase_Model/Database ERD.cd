@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Decibase_Model.Album">
+    <Position X="1.5" Y="3.75" Width="2.25" />
+    <AssociationLine Name="Tracks" Type="Decibase_Model.Track" FixedFromPoint="true">
+      <Path>
+        <Point X="3.438" Y="3.75" />
+        <Point X="3.438" Y="3.209" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABEAAIAAAgAAAAAQAgAAAAIAAAAAIAAAAAAA=</HashCode>
+      <FileName>Model Classes\Album.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tracks" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Decibase_Model.Artist">
+    <Position X="11.5" Y="0.5" Width="3.5" />
+    <AssociationLine Name="Tracks" Type="Decibase_Model.TrackArtist_Junction" FixedFromPoint="true">
+      <Path>
+        <Point X="11.5" Y="1.562" />
+        <Point X="8.75" Y="1.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAEAQAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Model Classes\Artist.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tracks" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Decibase_Model.TrackArtist_Junction">
+    <Position X="6.75" Y="0.5" Width="2" />
+    <AssociationLine Name="Artist" Type="Decibase_Model.Artist" FixedFromPoint="true">
+      <Path>
+        <Point X="8.75" Y="0.874" />
+        <Point X="11.5" Y="0.874" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Track" Type="Decibase_Model.Track" FixedFromPoint="true">
+      <Path>
+        <Point X="6.75" Y="0.781" />
+        <Point X="3.75" Y="0.781" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAgAAAEAAAAIAEAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model Classes\TrackArtist_Junction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Artist" />
+      <Property Name="Track" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Decibase_Model.Track">
+    <Position X="1.5" Y="0.5" Width="2.25" />
+    <AssociationLine Name="Artists" Type="Decibase_Model.TrackArtist_Junction" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="1.156" />
+        <Point X="6.75" Y="1.156" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Features" Type="Decibase_Model.TrackArtist_Junction" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="1.566" />
+        <Point X="6.75" Y="1.566" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Remixers" Type="Decibase_Model.TrackArtist_Junction" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="1.976" />
+        <Point X="6.75" Y="1.976" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Album" Type="Decibase_Model.Album" FixedFromPoint="true">
+      <Path>
+        <Point X="1.812" Y="3.209" />
+        <Point X="1.812" Y="3.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAEAAgAIBIAAAggAEAIAAAEAACAAAAAA=</HashCode>
+      <FileName>Model Classes\Track.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Album" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Artists" />
+      <Property Name="Features" />
+      <Property Name="Remixers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
