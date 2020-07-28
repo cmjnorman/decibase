@@ -7,7 +7,7 @@ namespace Decibase_Model
     public partial class Album
     {
         public int AlbumId { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public int TotalTracks { get; set; }
         public int TotalDiscs { get; set; }
         public string Year { get; set; }

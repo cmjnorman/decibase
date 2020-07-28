@@ -11,7 +11,7 @@ namespace Decibase_Model
             if (!(obj is Album)) return false;
 
             var album = (Album)obj;
-            if (album.Name != this.Name) return false;
+            if (album.Title != this.Title) return false;
             if (album.Year != null && this.Year != null && album.Year != this.Year) return false;
 
             return true;
@@ -19,12 +19,12 @@ namespace Decibase_Model
 
         public override int GetHashCode()
         {
-            return Int32.Parse(this.Year) + this.Name.GetHashCode();
+            return Int32.Parse(this.Year) + this.Title.GetHashCode();
         }
 
         public override string ToString()
         {
-            return Year == null ? Name : $"{Name} ({Year})";
+            return Year == null ? Title : $"{Title} ({Year})";
         }
     }
 }
