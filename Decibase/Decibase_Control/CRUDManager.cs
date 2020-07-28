@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Decibase_Model;
+using Microsoft.EntityFrameworkCore;
 
-namespace Decibase_BusinessLayer
+namespace Decibase_Control
 {
     class Program
     {
@@ -15,37 +16,49 @@ namespace Decibase_BusinessLayer
 
     public class CRUDManager
     {
-        public List<Track> RetrieveAllTracks()
+        #region CREATE
+        public void AddNewTrack(string title, string albumTitle)
         {
-            using (var db = new DecibaseContext()) return db.Tracks.ToList();
+            using (var db = new DecibaseContext())
+            {
+                AddNewAlbum(albumTitle);
+                var album = db.Albums.First(a => a.Title == albumTitle);
+                var newTrack = new Track { Title = title, Album = album };
+                if (!RetrieveAllTracks().Contains(newTrack))
+                {
+                    db.Add(newTrack);
+                    db.SaveChanges();
+                }
+            }
         }
 
-        public List<Album> RetrieveAllAlbums()
+        public void AddNewAlbum(string title)
         {
-            using (var db = new DecibaseContext()) return db.Albums.ToList();
+            using (var db = new DecibaseContext())
+            {
+                var newAlbum = new Album { Title = title };
+                if (!RetrieveAllAlbums().Contains(newAlbum))
+                {
+                    db.Add(newAlbum);
+                    db.SaveChanges();
+                }
+            }
         }
 
-        public List<Artist> RetrieveAllArtists()
+        public void AddNewArtist(string name)
         {
-            using (var db = new DecibaseContext()) return db.Artists.ToList();
+            using (var db = new DecibaseContext())
+            {
+                var newArtist = new Artist { Name = name };
+                if (!RetrieveAllArtists().Contains(newArtist))
+                {
+                    db.Add(newArtist);
+                    db.SaveChanges();
+                }
+            }
         }
+        #endregion
 
-        //public void AddAlbum(string title)
-        //{
-        //    using (var db = new DecibaseContext()) db.Add(new Album);
-        //}
-
-        //public void AddTrack(string title, string artist, string albumName, int trackNumber, int diskNumber, string genre)
-        //{
-        //    using (var db = new DecibaseContext())
-        //    {
-        //        if (db.Albums.Where(a => a.Name == albumName).FirstOrDefault() == null)
-        //        {
-        //            db.Albums.Add(new Album { Name = albumName });
-        //        }
-        //        var album = db.Albums.Where(a => a.Name == albumName).FirstOrDefault();
-        //        db.Tracks.Add(new Track { Title = title, });
-        //    }
-        //}
+       
     }
 }
