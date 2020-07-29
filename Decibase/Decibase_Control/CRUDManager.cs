@@ -16,6 +16,37 @@ namespace Decibase_Control
 
     public class CRUDManager
     {
+        private Artist selectedArtist;
+        private Album selectedAlbum;
+        private Track selectedTrack;
+
+        #region Selection
+        public void SelectArtist(string artistName)
+        {
+            using(var db = new DecibaseContext())
+            {
+                selectedArtist = GetArtist(artistName);
+            }
+        }
+
+        public void SelectAlbum(string albumTitle)
+        {
+            using (var db = new DecibaseContext())
+            {
+                selectedAlbum = GetAlbum(albumTitle);
+            }
+        }
+
+        public void SelectTrack(string trackTitle)
+        {
+            using (var db = new DecibaseContext())
+            {
+                selectedTrack = GetTrack(trackTitle);
+            }
+        }
+
+        #endregion
+
         #region CREATE
         public void AddNewTrack(string title, string albumTitle)
         {
@@ -24,7 +55,7 @@ namespace Decibase_Control
                 AddNewAlbum(albumTitle);
                 var album = db.Albums.First(a => a.Title == albumTitle);
                 var newTrack = new Track { Title = title, Album = album };
-                if (!RetrieveAllTracks().Contains(newTrack))
+                if (!db.Tracks.ToList().Contains(newTrack))
                 {
                     db.Add(newTrack);
                     db.SaveChanges();
@@ -37,7 +68,7 @@ namespace Decibase_Control
             using (var db = new DecibaseContext())
             {
                 var newAlbum = new Album { Title = title };
-                if (!RetrieveAllAlbums().Contains(newAlbum))
+                if (!db.Albums.ToList().Contains(newAlbum))
                 {
                     db.Add(newAlbum);
                     db.SaveChanges();
@@ -50,7 +81,7 @@ namespace Decibase_Control
             using (var db = new DecibaseContext())
             {
                 var newArtist = new Artist { Name = name };
-                if (!RetrieveAllArtists().Contains(newArtist))
+                if (!db.Artists.ToList().Contains(newArtist))
                 {
                     db.Add(newArtist);
                     db.SaveChanges();
@@ -60,47 +91,128 @@ namespace Decibase_Control
         #endregion
 
         #region READ
-        public Track RetrieveTrack(string title)
+        public Track GetTrack(string title)
         {
             using (var db = new DecibaseContext()) return db.Tracks.FirstOrDefault(t => t.Title == title);
         }
 
-        public Album RetrieveAlbum(string title)
+        public Album GetAlbum(string title)
         {
             using (var db = new DecibaseContext()) return db.Albums.FirstOrDefault(a => a.Title == title);
         }
 
-        public Artist RetrieveArtist(string name)
+        public Artist GetArtist(string name)
         {
             using (var db = new DecibaseContext()) return db.Artists.FirstOrDefault(t => t.Name == name);
         }
 
-        public List<Track> RetrieveAllTracks()
+        public List<string> RetrieveAllTrackTitles()
         {
-            using (var db = new DecibaseContext()) return db.Tracks.ToList();
+            using (var db = new DecibaseContext())
+            {
+                var tracks = db.Tracks.ToList();
+                var trackTitles = new List<String>();
+                foreach(var track in tracks)
+                {
+                    trackTitles.Add(track.Title);
+                }
+                return trackTitles;
+            }
         }
-
-        public List<Album> RetrieveAllAlbums()
-        {
-            using (var db = new DecibaseContext()) return db.Albums.ToList();
-        }
-
-        public List<Artist> RetrieveAllArtists()
-        {
-            using (var db = new DecibaseContext()) return db.Artists.ToList();
-        }
-
         public List<Track> RetrieveAlbumTracks(Album album)
         {
             using (var db = new DecibaseContext()) return db.Tracks.Where(t => t.AlbumId == album.AlbumId).ToList();
+        }
+
+        public List<string> RetrieveAlbumTrackTitles(string albumTitle)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var albumTracks = RetrieveAlbumTracks(GetAlbum(albumTitle));
+                var albumTrackTitles = new List<string>();
+                foreach (var track in albumTracks)
+                {
+                    albumTrackTitles.Add(track.Title);
+                }
+                return albumTrackTitles;
+            }
         }
 
         public List<Track> RetrieveArtistTracks(Artist artist)
         {
             using (var db = new DecibaseContext())
             {
-                var artistIncludingTracks = db.Artists.Include(a => a.Tracks).ThenInclude(ta => ta.Track).First(a => a.ArtistId == artist.ArtistId);
+                var artistIncludingTracks = db.Artists.Include(a => a.Tracks).ThenInclude(ta => ta.Track).ThenInclude(t => t.Album).First(a => a.ArtistId == artist.ArtistId);
                 return artistIncludingTracks.Tracks.Select(ta => ta.Track).ToList();
+            }
+        }
+
+        public List<string> RetrieveArtistTrackTitles(string artistName)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var artistTracks = RetrieveArtistTracks(GetArtist(artistName));
+                var artistTrackTitles = new List<string>();
+                foreach (var track in artistTracks)
+                {
+                    artistTrackTitles.Add(track.Title);
+                }
+                return artistTrackTitles;
+            }
+        }
+
+        public List<string> RetrieveAllAlbumTitles()
+        {
+            using (var db = new DecibaseContext())
+            {
+                var albums = db.Albums.ToList();
+                var albumTitles = new List<String>();
+                foreach (var album in albums)
+                {
+                    albumTitles.Add(album.Title);
+                }
+                return albumTitles;
+            }
+        }
+
+        public List<Album> RetrieveArtistAlbums(Artist artist)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var artistAlbums = new List<Album>();
+                foreach (var track in RetrieveArtistTracks(artist))
+                {
+                    if (!artistAlbums.Contains(track.Album)) artistAlbums.Add(track.Album);
+                }
+                return artistAlbums;
+            }
+        }
+
+        public List<string> RetrieveArtistAlbumTitles(string artistName)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var artistAlbums = RetrieveArtistAlbums(GetArtist(artistName));
+                var artistAlbumTitles = new List<string>();
+                foreach (var track in artistAlbums)
+                {
+                    artistAlbumTitles.Add(track.Title);
+                }
+                return artistAlbumTitles;
+            }
+        }
+
+        public List<string> RetrieveAllArtistNames()
+        {
+            using(var db = new DecibaseContext())
+            {
+                var artists = db.Artists.ToList();
+                var artistNames = new List<String>();
+                foreach (var artist in artists)
+                {
+                    artistNames.Add(artist.Name);
+                }
+                return artistNames;
             }
         }
 
@@ -110,6 +222,51 @@ namespace Decibase_Control
             {
                 var trackIncludingArtists = db.Tracks.Include(t => t.Artists).ThenInclude(ta => ta.Artist).First(t => t.TrackId == track.TrackId);
                 return trackIncludingArtists.Artists.Select(ta => ta.Artist).ToList();
+            }
+        }
+
+        public List<string> RetrieveTrackArtistsNames(string trackTitle)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var trackArtists = RetrieveTrackArtists(GetTrack(trackTitle));
+                var trackArtistsnames = new List<string>();
+                foreach (var track in trackArtists)
+                {
+                    trackArtistsnames.Add(track.Name);
+                }
+                return trackArtistsnames;
+            }
+
+        }
+
+        public List<Artist> RetrieveAlbumArtists(Album album)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var albumArtists = new List<Artist>();
+                foreach(var track in album.Tracks)
+                {
+                    foreach(var artist in RetrieveTrackArtists(track))
+                    {
+                        if (!albumArtists.Contains(artist)) albumArtists.Add(artist);
+                    }
+                }
+                return albumArtists;
+            }
+        }
+
+        public List<string> RetrieveAlbumArtistsNames(string albumTitle)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var albumArtists = RetrieveAlbumArtists(GetAlbum(albumTitle));
+                var albumArtistsnames = new List<string>();
+                foreach (var artist in albumArtists)
+                {
+                    albumArtistsnames.Add(artist.Name);
+                }
+                return albumArtistsnames;
             }
         }
 
