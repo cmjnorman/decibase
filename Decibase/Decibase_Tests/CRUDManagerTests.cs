@@ -115,27 +115,27 @@ namespace Decibase_Tests
 
         #region ReadTests
         [Test]
-        public void CallingRetrieveAlbumTracksReturnsCorrectList()
+        public void CallingRetrieveAlbumTracksReturnsListOfTracks()
         {
             cm.AddNewAlbum("Bicep");
             cm.AddNewTrack("Opal", "Bicep");
             cm.AddNewTrack("Glue", "Bicep");
             cm.AddNewTrack("Aura", "Bicep");
 
-            var album = cm.RetrieveAlbum("Bicep");
+            var album = cm.GetAlbum("Bicep");
             var tracklist = new List<Track>() { new Track { Title = "Opal" }, new Track { Title = "Glue" }, new Track { Title = "Aura" } };
 
             Assert.AreEqual(cm.RetrieveAlbumTracks(album), tracklist);
         }
 
         [Test]
-        public void CallingRetrieveArtistTracksReturnsCorrectList()
+        public void CallingRetrieveArtistTracksReturnsListOfTracks()
         {
             cm.AddNewArtist("Bicep");
-            var artist = cm.RetrieveArtist("Bicep");
-            cm.JoinTrackToArtist(cm.RetrieveTrack("Opal"), artist);
-            cm.JoinTrackToArtist(cm.RetrieveTrack("Glue"), artist);
-            cm.JoinTrackToArtist(cm.RetrieveTrack("Aura"), artist);
+            var artist = cm.GetArtist("Bicep");
+            cm.JoinTrackToArtist(cm.GetTrack("Opal"), artist);
+            cm.JoinTrackToArtist(cm.GetTrack("Glue"), artist);
+            cm.JoinTrackToArtist(cm.GetTrack("Aura"), artist);
 
             var trackTitles = new List<string>() { "Opal", "Glue", "Aura"  };
 
@@ -147,6 +147,33 @@ namespace Decibase_Tests
             }
             Assert.AreEqual(artistTrackTitles, trackTitles);
         }
+
+        [Test]
+        public void CallingRetrieveAlbumArtistsReturnsListOfArtists()
+        {
+            var album = cm.GetAlbum("Bicep");
+            var albumTracks = cm.RetrieveAlbumTracks(album);
+            var trackTitles = new List<string>() { "Opal", "Glue", "Aura" };
+            var albumTrackTitles = new List<string>();
+            foreach (var track in albumTracks)
+            {
+                albumTrackTitles.Add(track.Title);
+            }
+            Assert.AreEqual(albumTrackTitles, trackTitles);
+        }
+
+        [Test]
+        public void CallingRetrieveArtistAlbumsReturnsListOfAlbums()
+        {
+            cm.AddNewTrack("Atlas", "Atlas");
+            var track = cm.GetTrack("Atlas");
+            var artist = cm.GetArtist("Bicep");
+            cm.JoinTrackToArtist(track, artist);
+            var artistAlbums = cm.RetrieveArtistAlbums(artist);
+            var albums = new List<Album>() { new Album { Title = "Bicep" }, new Album { Title = "Atlas" } };
+            Assert.AreEqual(artistAlbums, albums);
+        }
+
         #endregion
 
         #region UpdateTests
@@ -155,7 +182,7 @@ namespace Decibase_Tests
         public void CallingTrackSetTitleSetsTitle()
         {
             cm.AddNewTrack("Do I Wanna Know", "FM");
-            var track = cm.RetrieveTrack("Do I Wanna Know");
+            var track = cm.GetTrack("Do I Wanna Know");
             cm.TrackSetTitle(track, "Do I Wanna Know?");
             Assert.AreEqual(track.Title, "Do I Wanna Know?");
         }
@@ -164,7 +191,7 @@ namespace Decibase_Tests
         public void CallingTrackSetTrackNumberSetsTrackNumber()
         {
             cm.AddNewTrack("Do I Wanna Know?", "FM");
-            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            var track = cm.GetTrack("Do I Wanna Know?");
             cm.TrackSetTrackNumber(track, 1);
             Assert.AreEqual(track.TrackNumber, 1);
         }
@@ -173,7 +200,7 @@ namespace Decibase_Tests
         public void CallingTrackSetDiscNumberSetsDiscNumber()
         {
             cm.AddNewTrack("Do I Wanna Know?", "FM");
-            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            var track = cm.GetTrack("Do I Wanna Know?");
             cm.TrackSetDiscNumber(track, 1);
             Assert.AreEqual(track.DiscNumber, 1);
         }
@@ -182,7 +209,7 @@ namespace Decibase_Tests
         public void CallingTrackSetGenreSetsGenre()
         {
             cm.AddNewTrack("Do I Wanna Know?", "FM");
-            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            var track = cm.GetTrack("Do I Wanna Know?");
             cm.TrackSetGenre(track, "Indie Rock");
             Assert.AreEqual(track.Genre, "Indie Rock");
         }
@@ -192,8 +219,8 @@ namespace Decibase_Tests
         {
             cm.AddNewTrack("Do I Wanna Know?", "FM");
             cm.AddNewAlbum("AM");
-            var track = cm.RetrieveTrack("Do I Wanna Know?");
-            var album = cm.RetrieveAlbum("AM");
+            var track = cm.GetTrack("Do I Wanna Know?");
+            var album = cm.GetAlbum("AM");
             cm.TrackSetAlbum(track, album);
             Assert.AreEqual(track.Album, album);
         }
@@ -203,8 +230,8 @@ namespace Decibase_Tests
         {
             cm.AddNewTrack("Do I Wanna Know?", "AM");
             cm.AddNewArtist("Arctic Monkeys");
-            var track = cm.RetrieveTrack("Do I Wanna Know?");
-            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            var track = cm.GetTrack("Do I Wanna Know?");
+            var artist = cm.GetArtist("Arctic Monkeys");
             cm.JoinTrackToArtist(track, artist);
             Assert.AreEqual(cm.RetrieveTrackArtists(track)[0], artist);
         }
@@ -212,8 +239,8 @@ namespace Decibase_Tests
         [Test]
         public void CallingUnjoinTrackFromArtistUnjoinsTrackFromArtist()
         {
-            var track = cm.RetrieveTrack("Do I Wanna Know?");
-            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            var track = cm.GetTrack("Do I Wanna Know?");
+            var artist = cm.GetArtist("Arctic Monkeys");
             var artistCountBefore = cm.RetrieveTrackArtists(track).Count;
             cm.UnjoinTrackFromArtist(track, artist);
             var artistCountAfter = cm.RetrieveTrackArtists(track).Count;
@@ -224,7 +251,7 @@ namespace Decibase_Tests
         public void CallingAlbumSetTitleSetsTitle()
         {
             cm.AddNewAlbum("Homework");
-            var album = cm.RetrieveAlbum("Homework");
+            var album = cm.GetAlbum("Homework");
             cm.AlbumSetTitle(album, "Discovery");
             Assert.AreEqual(album.Title, "Discovery");
         }
@@ -233,7 +260,7 @@ namespace Decibase_Tests
         public void CallingAlbumSetTotalTracksSetsTotalTracks()
         {
             cm.AddNewAlbum("Discovery");
-            var album = cm.RetrieveAlbum("Discovery");
+            var album = cm.GetAlbum("Discovery");
             cm.AlbumSetTotalTracks(album, 14);
             Assert.AreEqual(album.TotalTracks, 14);
         }
@@ -242,7 +269,7 @@ namespace Decibase_Tests
         public void CallingAlbumSetTotalDiscsSetsTotalDiscs()
         {
             cm.AddNewAlbum("Discovery");
-            var album = cm.RetrieveAlbum("Discovery");
+            var album = cm.GetAlbum("Discovery");
             cm.AlbumSetTotalDiscs(album, 1);
             Assert.AreEqual(album.TotalDiscs, 1);
         }
@@ -251,7 +278,7 @@ namespace Decibase_Tests
         public void CallingAlbumSetYearSetsYear()
         {
             cm.AddNewAlbum("Discovery");
-            var album = cm.RetrieveAlbum("Discovery");
+            var album = cm.GetAlbum("Discovery");
             cm.AlbumSetYear(album, "2001");
             Assert.AreEqual(album.Year, "2001");
         }
@@ -259,7 +286,7 @@ namespace Decibase_Tests
         [Test]
         public void CallingArtistSetNameSetsName()
         {
-            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            var artist = cm.GetArtist("Arctic Monkeys");
             cm.ArtistSetName(artist, "Antartic Monkeys");
             Assert.AreEqual(artist.Name, "Antartic Monkeys");
         }
@@ -267,7 +294,7 @@ namespace Decibase_Tests
         [Test]
         public void CallingArtistSetNationalitySetsNationality()
         {
-            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            var artist = cm.GetArtist("Arctic Monkeys");
             cm.ArtistSetNationality(artist, "British");
             Assert.AreEqual(artist.Nationality, "British");
         }
@@ -278,27 +305,27 @@ namespace Decibase_Tests
         public void CallingDeleteTrackDeletesTrack()
         {
             cm.AddNewTrack("Tondo", "Ecstacy");
-            var track = cm.RetrieveTrack("Tondo");
+            var track = cm.GetTrack("Tondo");
             cm.DeleteTrack(track);
-            Assert.IsNull(cm.RetrieveTrack("Tondo"));
+            Assert.IsNull(cm.GetTrack("Tondo"));
         }
 
         [Test]
         public void CallingDeleteAlbumDeletesAlbum()
         {
             cm.AddNewAlbum("Ecstacy");
-            var album = cm.RetrieveAlbum("Ecstacy");
+            var album = cm.GetAlbum("Ecstacy");
             cm.DeleteAlbum(album);
-            Assert.IsNull(cm.RetrieveAlbum("Ecstacy"));
+            Assert.IsNull(cm.GetAlbum("Ecstacy"));
         }
 
         [Test]
         public void CallingDeleteArtistDeletesArtist()
         {
             cm.AddNewArtist("Disclosure");
-            var artist = cm.RetrieveArtist("Disclosure");
+            var artist = cm.GetArtist("Disclosure");
             cm.DeleteArtist(artist);
-            Assert.IsNull(cm.RetrieveArtist("Disclosure"));
+            Assert.IsNull(cm.GetArtist("Disclosure"));
         }
 
         #endregion

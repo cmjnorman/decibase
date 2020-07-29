@@ -93,7 +93,31 @@ namespace Decibase_Control
         #region READ
         public Track GetTrack(string title)
         {
-            using (var db = new DecibaseContext()) return db.Tracks.FirstOrDefault(t => t.Title == title);
+            using (var db = new DecibaseContext()) return db.Tracks.Include(t => t.Album).FirstOrDefault(t => t.Title == title);
+        }
+
+        public string GetTrackNumber(string trackTitle)
+        {
+            var track = GetTrack(trackTitle);
+            return track.TrackNumber.ToString();
+        }
+
+        public string GetDiscNumber(string trackTitle)
+        {
+            var track = GetTrack(trackTitle);
+            return track.DiscNumber.ToString();
+        }
+
+        public string GetTrackGenre(string trackTitle)
+        {
+            var track = GetTrack(trackTitle);
+            return track.Genre;
+        }
+
+        public string GetTrackAlbum(string trackTitle)
+        {
+            var track = GetTrack(trackTitle);
+            return track.Album.Title;
         }
 
         public Album GetAlbum(string title)
@@ -101,9 +125,35 @@ namespace Decibase_Control
             using (var db = new DecibaseContext()) return db.Albums.FirstOrDefault(a => a.Title == title);
         }
 
+
+        public string GetTotalTracks(string albumTitle)
+        {
+            var album = GetAlbum(albumTitle);
+            return album.TotalTracks.ToString();
+        }
+
+        public string GetTotalDiscs(string albumTitle)
+        {
+            var album = GetAlbum(albumTitle);
+            return album.TotalDiscs.ToString();
+        }
+
+        public string GetAlbumYear(string albumTitle)
+        {
+            var album = GetAlbum(albumTitle);
+            return album.Year;
+        }
+
         public Artist GetArtist(string name)
         {
             using (var db = new DecibaseContext()) return db.Artists.FirstOrDefault(t => t.Name == name);
+        }
+
+       
+        public string GetArtistNationality(string artistName)
+        {
+            var artist = GetArtist(artistName);
+            return artist.Nationality;
         }
 
         public List<string> RetrieveAllTrackTitles()
