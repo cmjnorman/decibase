@@ -104,8 +104,127 @@ namespace Decibase_Control
             }
         }
 
+        public List<Artist> RetrieveTrackArtists(Track track)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var trackIncludingArtists = db.Tracks.Include(t => t.Artists).ThenInclude(ta => ta.Artist).First(t => t.TrackId == track.TrackId);
+                return trackIncludingArtists.Artists.Select(ta => ta.Artist).ToList();
+            }
+        }
+
         #endregion
 
-       
+        #region UPDATE
+        public void TrackSetTitle(Track track, string title)
+        {
+            track.Title = title;
+        }
+        public void TrackSetTrackNumber(Track track, int number)
+        {
+            track.TrackNumber = number;
+        }
+
+        public void TrackSetDiscNumber(Track track, int number)
+        {
+            track.DiscNumber = number;
+        }
+
+        public void TrackSetGenre(Track track, string genre)
+        {
+            track.Genre = genre;
+        }
+
+        public void TrackSetAlbum(Track track, Album album)
+        {
+            track.Album = album;
+        }
+
+        public void JoinTrackToArtist(Track track, Artist artist)
+        {
+            using (var db = new DecibaseContext())
+            {
+                if (db.TrackArtists.FirstOrDefault(ta => ta.TrackId == track.TrackId && ta.ArtistId == artist.ArtistId) == null)
+                {
+                    var ta = new TrackArtist_Junction() { TrackId = track.TrackId, ArtistId = artist.ArtistId };
+                    db.Add(ta);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void UnjoinTrackFromArtist(Track track, Artist artist)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var ta = db.TrackArtists.First(ta => ta.TrackId == track.TrackId && ta.ArtistId == artist.ArtistId);
+                db.Remove(ta);
+                db.SaveChanges();
+            }
+        }
+
+        public void AlbumSetTitle(Album album, string title)
+        {
+            album.Title = title;
+        }
+        public void AlbumSetTotalTracks(Album album, int number)
+        {
+            album.TotalTracks = number;
+        }
+
+        public void AlbumSetTotalDiscs(Album album, int number)
+        {
+            album.TotalDiscs = number;
+        }
+
+        public void AlbumSetYear(Album album, string year)
+        {
+            album.Year = year;
+        }
+
+        public void ArtistSetName(Artist artist, string name)
+        {
+            artist.Name = name;
+        }
+
+        public void ArtistSetNationality(Artist artist, string nationality)
+        {
+            artist.Nationality = nationality;
+        }
+        #endregion
+
+        #region DELETE
+        public void deleteTrack(Track track)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var trackArtists = db.TrackArtists.Where(ta => ta.TrackId == track.TrackId).ToList();
+                db.RemoveRange(trackArtists);
+                db.Remove(track);
+                db.SaveChanges();
+            }
+        }
+
+        public void deleteAlbum(Album album)
+        {
+            using (var db = new DecibaseContext())
+            {
+                db.Remove(album);
+                db.SaveChanges();
+            }
+        }
+
+        public void deleteArtist(Artist artist)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var artistTracks = db.TrackArtists.Where(ta => ta.ArtistId == artist.ArtistId).ToList();
+                db.Remove(artistTracks);
+                db.Remove(artist);
+                db.SaveChanges();
+            }
+        }
+        #endregion
+
     }
 }

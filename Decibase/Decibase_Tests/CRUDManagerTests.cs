@@ -149,5 +149,128 @@ namespace Decibase_Tests
         }
         #endregion
 
+        #region UpdateTests
+
+        [Test]
+        public void CallingTrackSetTitleSetsTitle()
+        {
+            cm.AddNewTrack("Do I Wanna Know", "FM");
+            var track = cm.RetrieveTrack("Do I Wanna Know");
+            cm.TrackSetTitle(track, "Do I Wanna Know?");
+            Assert.AreEqual(track.Title, "Do I Wanna Know?");
+        }
+
+        [Test]
+        public void CallingTrackSetTrackNumberSetsTrackNumber()
+        {
+            cm.AddNewTrack("Do I Wanna Know?", "FM");
+            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            cm.TrackSetTrackNumber(track, 1);
+            Assert.AreEqual(track.TrackNumber, 1);
+        }
+
+        [Test]
+        public void CallingTrackSetDiscNumberSetsDiscNumber()
+        {
+            cm.AddNewTrack("Do I Wanna Know?", "FM");
+            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            cm.TrackSetDiscNumber(track, 1);
+            Assert.AreEqual(track.DiscNumber, 1);
+        }
+
+        [Test]
+        public void CallingTrackSetGenreSetsGenre()
+        {
+            cm.AddNewTrack("Do I Wanna Know?", "FM");
+            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            cm.TrackSetGenre(track, "Indie Rock");
+            Assert.AreEqual(track.Genre, "Indie Rock");
+        }
+
+        [Test]
+        public void CallingTrackSetAlbumSetsAlbum()
+        {
+            cm.AddNewTrack("Do I Wanna Know?", "FM");
+            cm.AddNewAlbum("AM");
+            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            var album = cm.RetrieveAlbum("AM");
+            cm.TrackSetAlbum(track, album);
+            Assert.AreEqual(track.Album, album);
+        }
+
+        [Test]
+        public void CallingJoinTrackToArtistJoinsTrackToArtist()
+        {
+            cm.AddNewTrack("Do I Wanna Know?", "AM");
+            cm.AddNewArtist("Arctic Monkeys");
+            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            cm.JoinTrackToArtist(track, artist);
+            Assert.AreEqual(cm.RetrieveTrackArtists(track)[0], artist);
+        }
+
+        [Test]
+        public void CallingUnjoinTrackFromArtistUnjoinsTrackFromArtist()
+        {
+            var track = cm.RetrieveTrack("Do I Wanna Know?");
+            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            var artistCountBefore = cm.RetrieveTrackArtists(track).Count;
+            cm.UnjoinTrackFromArtist(track, artist);
+            var artistCountAfter = cm.RetrieveTrackArtists(track).Count;
+            Assert.IsTrue(artistCountBefore == artistCountAfter + 1);
+        }
+
+        [Test]
+        public void CallingAlbumSetTitleSetsTitle()
+        {
+            cm.AddNewAlbum("Homework");
+            var album = cm.RetrieveAlbum("Homework");
+            cm.AlbumSetTitle(album, "Discovery");
+            Assert.AreEqual(album.Title, "Discovery");
+        }
+
+        [Test]
+        public void CallingAlbumSetTotalTracksSetsTotalTracks()
+        {
+            cm.AddNewAlbum("Discovery");
+            var album = cm.RetrieveAlbum("Discovery");
+            cm.AlbumSetTotalTracks(album, 14);
+            Assert.AreEqual(album.TotalTracks, 14);
+        }
+
+        [Test]
+        public void CallingAlbumSetTotalDiscsSetsTotalDiscs()
+        {
+            cm.AddNewAlbum("Discovery");
+            var album = cm.RetrieveAlbum("Discovery");
+            cm.AlbumSetTotalDiscs(album, 1);
+            Assert.AreEqual(album.TotalDiscs, 1);
+        }
+
+        [Test]
+        public void CallingAlbumSetYearSetsYear()
+        {
+            cm.AddNewAlbum("Discovery");
+            var album = cm.RetrieveAlbum("Discovery");
+            cm.AlbumSetYear(album, "2001");
+            Assert.AreEqual(album.Year, 2001);
+        }
+
+        [Test]
+        public void CallingArtistSetNameSetsName()
+        {
+            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            cm.ArtistSetName(artist, "Antartic Monkeys");
+            Assert.AreEqual(artist.Name, "Antartic Monkeys");
+        }
+
+        [Test]
+        public void CallingArtistSetNationalitySetsNationality()
+        {
+            var artist = cm.RetrieveArtist("Arctic Monkeys");
+            cm.ArtistSetNationality(artist, "British");
+            Assert.AreEqual(artist.Nationality, "British");
+        }
+        #endregion
     }
 }
