@@ -59,6 +59,53 @@ namespace Decibase_Control
         }
         #endregion
 
+        #region READ
+        public Track RetrieveTrack(string title)
+        {
+            using (var db = new DecibaseContext()) return db.Tracks.First(t => t.Title == title);
+        }
+
+        public Album RetrieveAlbum(string title)
+        {
+            using (var db = new DecibaseContext()) return db.Albums.First(a => a.Title == title);
+        }
+
+        public Artist RetrieveArtist(string name)
+        {
+            using (var db = new DecibaseContext()) return db.Artists.First(t => t.Name == name);
+        }
+
+        public List<Track> RetrieveAllTracks()
+        {
+            using (var db = new DecibaseContext()) return db.Tracks.ToList();
+        }
+
+        public List<Album> RetrieveAllAlbums()
+        {
+            using (var db = new DecibaseContext()) return db.Albums.ToList();
+        }
+
+        public List<Artist> RetrieveAllArtists()
+        {
+            using (var db = new DecibaseContext()) return db.Artists.ToList();
+        }
+
+        public List<Track> RetrieveAlbumTracks(Album album)
+        {
+            using (var db = new DecibaseContext()) return db.Tracks.Where(t => t.AlbumId == album.AlbumId).ToList();
+        }
+
+        public List<Track> RetrieveArtistTracks(Artist artist)
+        {
+            using (var db = new DecibaseContext())
+            {
+                var artistIncludingTracks = db.Artists.Include(a => a.Tracks).ThenInclude(ta => ta.Track).First(a => a.ArtistId == artist.ArtistId);
+                return artistIncludingTracks.Tracks.Select(ta => ta.Track).ToList();
+            }
+        }
+
+        #endregion
+
        
     }
 }

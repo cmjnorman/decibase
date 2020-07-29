@@ -4,12 +4,13 @@ using Decibase_Control;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Decibase_Tests
 {
     class CRUDManagerTests
     {
-        private CRUDManager _CRUDManager = new CRUDManager();
+        private CRUDManager cm = new CRUDManager();
 
         #region CreateTests
         [Test]
@@ -27,7 +28,7 @@ namespace Decibase_Tests
                 }
 
                 var numTracksBefore = db.Tracks.Count();
-                _CRUDManager.AddNewTrack("Lush", "New Energy");
+                cm.AddNewTrack("Lush", "New Energy");
                 var numTracksAfter = db.Tracks.Count();
                 Assert.IsTrue(numTracksAfter == numTracksBefore + 1);
             }
@@ -39,7 +40,7 @@ namespace Decibase_Tests
             using (var db = new DecibaseContext())
             {
                 var numTracksBefore = db.Tracks.Count();
-                _CRUDManager.AddNewTrack("Lush", "New Energy");
+                cm.AddNewTrack("Lush", "New Energy");
                 var numTracksAfter = db.Tracks.Count();
                 Assert.IsTrue(numTracksAfter == numTracksBefore);
             }
@@ -60,7 +61,7 @@ namespace Decibase_Tests
                 }
 
                 var numAlbumsBefore = db.Albums.Count();
-                _CRUDManager.AddNewAlbum("New Energy");
+                cm.AddNewAlbum("New Energy");
                 var numAlbumsAfter = db.Albums.Count();
                 Assert.IsTrue(numAlbumsAfter == numAlbumsBefore + 1);
             } 
@@ -72,7 +73,7 @@ namespace Decibase_Tests
             using (var db = new DecibaseContext())
             {
                 var numAlbumsBefore = db.Albums.Count();
-                _CRUDManager.AddNewAlbum("New Energy");
+                cm.AddNewAlbum("New Energy");
                 var numAlbumsAfter = db.Albums.Count();
                 Assert.IsTrue(numAlbumsAfter == numAlbumsBefore);
             }
@@ -93,7 +94,7 @@ namespace Decibase_Tests
                 }
 
                 var numArtistsBefore = db.Artists.Count();
-                _CRUDManager.AddNewArtist("Four Tet");
+                cm.AddNewArtist("Four Tet");
                 var numArtistsAfter = db.Artists.Count();
                 Assert.IsTrue(numArtistsAfter == numArtistsBefore + 1);
             }
@@ -105,13 +106,48 @@ namespace Decibase_Tests
             using (var db = new DecibaseContext())
             {
                 var numArtistsBefore = db.Artists.Count();
-                _CRUDManager.AddNewArtist("Four Tet");
+                cm.AddNewArtist("Four Tet");
                 var numArtistsAfter = db.Artists.Count();
                 Assert.IsTrue(numArtistsAfter == numArtistsBefore);
             }
         }
         #endregion
 
-        
+        #region ReadTests
+        [Test]
+        public void CallingRetrieveAlbumTracksReturnsCorrectList()
+        {
+            cm.AddNewAlbum("Bicep");
+            cm.AddNewTrack("Opal", "Bicep");
+            cm.AddNewTrack("Glue", "Bicep");
+            cm.AddNewTrack("Aura", "Bicep");
+
+            var album = cm.RetrieveAlbum("Bicep");
+            var tracklist = new List<Track>() { new Track { Title = "Opal" }, new Track { Title = "Glue" }, new Track { Title = "Aura" } };
+
+            Assert.AreEqual(cm.RetrieveAlbumTracks(album), tracklist);
+        }
+
+        [Test]
+        public void CallingRetrieveArtistTracksReturnsCorrectList()
+        {
+            cm.AddNewArtist("Bicep");
+            var artist = cm.RetrieveArtist("Bicep");
+            cm.JoinTrackToArtist(cm.RetrieveTrack("Opal"), artist);
+            cm.JoinTrackToArtist(cm.RetrieveTrack("Glue"), artist);
+            cm.JoinTrackToArtist(cm.RetrieveTrack("Aura"), artist);
+
+            var trackTitles = new List<string>() { "Opal", "Glue", "Aura"  };
+
+            var artistTracks = cm.RetrieveArtistTracks(artist);
+            var artistTrackTitles = new List<string>();
+            foreach(var track in artistTracks)
+            {
+                artistTrackTitles.Add(track.Title);
+            }
+            Assert.AreEqual(artistTrackTitles, trackTitles);
+        }
+        #endregion
+
     }
 }
