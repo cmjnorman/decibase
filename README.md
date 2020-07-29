@@ -16,3 +16,6 @@ Only one user story was marked as "done" in this sprint due to unforseen complic
 #### Sprint Retrospective
 The blocker fo this sprint was merely a lack of knowlege of Entity Framework, which lead to the first user story taking more time than was expected. However I was eventually able to overcome the blocker and managed to complete the user story. For the next sprint I am confident that I am more familiar with the tasks and so I am feeling optimistic with my ability to progress.
  
+### Sprint 2
+#### Sprint Goals
+The goals for this sprint are to complete and write unit tests for the CRUD functions, and to construct an initial WPF file for the GUI.
