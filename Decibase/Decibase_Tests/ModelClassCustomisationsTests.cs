@@ -10,40 +10,40 @@ namespace Decibase_Tests
         [Test]
         public void AlbumsWithSameNameAndYearAreEqual()
         {
-            var album1 = new Album { Name = "10000 Days", Year = "2006" };
-            var album2 = new Album { Name = "10000 Days", Year = "2006" };
+            var album1 = new Album { Title = "10000 Days", Year = "2006" };
+            var album2 = new Album { Title = "10000 Days", Year = "2006" };
             Assert.AreEqual(album1, album2);
         }
 
         [Test]
         public void AlbumsWithSameNameAndDifferentYearsAreNotEqual()
         {
-            var album1 = new Album { Name = "10000 Days", Year = "2006" };
-            var album2 = new Album { Name = "10000 Days", Year = "2007" };
+            var album1 = new Album { Title = "10000 Days", Year = "2006" };
+            var album2 = new Album { Title = "10000 Days", Year = "2007" };
             Assert.AreNotEqual(album1, album2);
         }
 
         [Test]
         public void AlbumsWithSameNameAndOneWithNullYearAreEqual()
         {
-            var album1 = new Album { Name = "10000 Days", Year = "2006" };
-            var album2 = new Album { Name = "10000 Days" };
+            var album1 = new Album { Title = "10000 Days", Year = "2006" };
+            var album2 = new Album { Title = "10000 Days" };
             Assert.AreEqual(album1, album2);
         }
 
         [Test]
         public void AlbumsWithSameNameAndBothWithNullYearAreEqual()
         {
-            var album1 = new Album { Name = "10000 Days" };
-            var album2 = new Album { Name = "10000 Days" };
+            var album1 = new Album { Title = "10000 Days" };
+            var album2 = new Album { Title = "10000 Days" };
             Assert.AreEqual(album1, album2);
         }
 
         [Test]
         public void AlbumsDifferentNameAreNotEqual()
         {
-            var album1 = new Album { Name = "10000 Days" };
-            var album2 = new Album { Name = "Lateralus" };
+            var album1 = new Album { Title = "10000 Days" };
+            var album2 = new Album { Title = "Lateralus" };
             Assert.AreNotEqual(album1, album2);
         }
         #endregion
@@ -95,7 +95,7 @@ namespace Decibase_Tests
         public void TracksWithSameNameAlbumAndArtistAreEqual()
         {
             var artist = new Artist { Name = "Caravan Palace", Nationality = "French" };
-            var album = new Album { Name = "Panic", Year = "2012" };
+            var album = new Album { Title = "Panic", Year = "2012" };
             var track1 = new Track { Title = "Cotton Heads", Album = album };
             var track2 = new Track { Title = "Cotton Heads", Album = album };
             var trackArtistJunction1 = new TrackArtist_Junction { Track = track1, Artist = artist };
@@ -110,7 +110,7 @@ namespace Decibase_Tests
         {
             var artist1 = new Artist { Name = "Caravan Palace", Nationality = "French" };
             var artist2 = new Artist { Name = "Parov Stellar", Nationality = "French" };
-            var album = new Album { Name = "Panic", Year = "2012" };
+            var album = new Album { Title = "Panic", Year = "2012" };
             var track1 = new Track { Title = "Cotton Heads", Album = album };
             var track2 = new Track { Title = "Cotton Heads", Album = album };
             var trackArtistJunction1 = new TrackArtist_Junction { Track = track1, Artist = artist1 };
@@ -124,8 +124,8 @@ namespace Decibase_Tests
         public void TracksWithSameNameArtistAndDifferentAlbumAreNotEqual()
         {
             var artist = new Artist { Name = "Caravan Palace", Nationality = "French" };
-            var album1 = new Album { Name = "Panic", Year = "2012" };
-            var album2 = new Album { Name = "Chronologic", Year = "2019" };
+            var album1 = new Album { Title = "Panic", Year = "2012" };
+            var album2 = new Album { Title = "Chronologic", Year = "2019" };
             var track1 = new Track { Title = "Cotton Heads", Album = album1 };
             var track2 = new Track { Title = "Cotton Heads", Album = album2 };
             var trackArtistJunction1 = new TrackArtist_Junction { Track = track1, Artist = artist };
@@ -138,7 +138,7 @@ namespace Decibase_Tests
         [Test]
         public void TracksWithSameNameAlbumAndNullArtistAreEqual()
         {
-            var album = new Album { Name = "Panic", Year = "2012" };
+            var album = new Album { Title = "Panic", Year = "2012" };
             var track1 = new Track { Title = "Cotton Heads", Album = album };
             var track2 = new Track { Title = "Cotton Heads", Album = album };
             Assert.AreEqual(track1, track2);

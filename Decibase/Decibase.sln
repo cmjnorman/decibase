@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Decibase_Model", "Decibase_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Decibase_Tests", "Decibase_Tests\Decibase_Tests.csproj", "{968645CA-824F-4349-846C-551017FB0E89}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Decibase_Control", "Decibase_Control\Decibase_Control.csproj", "{539E63AD-F6F1-460B-9393-178CE5BBD76F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decibase_View", "Decibase_View\Decibase_View.csproj", "{407CAD2B-CDD4-49D6-8931-BAFF3888CC90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{968645CA-824F-4349-846C-551017FB0E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{968645CA-824F-4349-846C-551017FB0E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{968645CA-824F-4349-846C-551017FB0E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{539E63AD-F6F1-460B-9393-178CE5BBD76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{539E63AD-F6F1-460B-9393-178CE5BBD76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{539E63AD-F6F1-460B-9393-178CE5BBD76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{539E63AD-F6F1-460B-9393-178CE5BBD76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{407CAD2B-CDD4-49D6-8931-BAFF3888CC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{407CAD2B-CDD4-49D6-8931-BAFF3888CC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{407CAD2B-CDD4-49D6-8931-BAFF3888CC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{407CAD2B-CDD4-49D6-8931-BAFF3888CC90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
