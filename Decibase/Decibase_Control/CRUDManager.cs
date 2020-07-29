@@ -62,17 +62,17 @@ namespace Decibase_Control
         #region READ
         public Track RetrieveTrack(string title)
         {
-            using (var db = new DecibaseContext()) return db.Tracks.First(t => t.Title == title);
+            using (var db = new DecibaseContext()) return db.Tracks.FirstOrDefault(t => t.Title == title);
         }
 
         public Album RetrieveAlbum(string title)
         {
-            using (var db = new DecibaseContext()) return db.Albums.First(a => a.Title == title);
+            using (var db = new DecibaseContext()) return db.Albums.FirstOrDefault(a => a.Title == title);
         }
 
         public Artist RetrieveArtist(string name)
         {
-            using (var db = new DecibaseContext()) return db.Artists.First(t => t.Name == name);
+            using (var db = new DecibaseContext()) return db.Artists.FirstOrDefault(t => t.Name == name);
         }
 
         public List<Track> RetrieveAllTracks()
@@ -194,18 +194,18 @@ namespace Decibase_Control
         #endregion
 
         #region DELETE
-        public void deleteTrack(Track track)
+        public void DeleteTrack(Track track)
         {
             using (var db = new DecibaseContext())
             {
                 var trackArtists = db.TrackArtists.Where(ta => ta.TrackId == track.TrackId).ToList();
-                db.RemoveRange(trackArtists);
+                if (trackArtists.Count > 0) db.RemoveRange(trackArtists);
                 db.Remove(track);
                 db.SaveChanges();
             }
         }
 
-        public void deleteAlbum(Album album)
+        public void DeleteAlbum(Album album)
         {
             using (var db = new DecibaseContext())
             {
@@ -214,12 +214,12 @@ namespace Decibase_Control
             }
         }
 
-        public void deleteArtist(Artist artist)
+        public void DeleteArtist(Artist artist)
         {
             using (var db = new DecibaseContext())
             {
                 var artistTracks = db.TrackArtists.Where(ta => ta.ArtistId == artist.ArtistId).ToList();
-                db.Remove(artistTracks);
+                if(artistTracks.Count > 0) db.Remove(artistTracks);
                 db.Remove(artist);
                 db.SaveChanges();
             }

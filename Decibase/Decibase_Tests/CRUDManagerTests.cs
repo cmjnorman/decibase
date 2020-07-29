@@ -253,7 +253,7 @@ namespace Decibase_Tests
             cm.AddNewAlbum("Discovery");
             var album = cm.RetrieveAlbum("Discovery");
             cm.AlbumSetYear(album, "2001");
-            Assert.AreEqual(album.Year, 2001);
+            Assert.AreEqual(album.Year, "2001");
         }
 
         [Test]
@@ -271,6 +271,36 @@ namespace Decibase_Tests
             cm.ArtistSetNationality(artist, "British");
             Assert.AreEqual(artist.Nationality, "British");
         }
+        #endregion
+
+        #region DeleteTests
+        [Test]
+        public void CallingDeleteTrackDeletesTrack()
+        {
+            cm.AddNewTrack("Tondo", "Ecstacy");
+            var track = cm.RetrieveTrack("Tondo");
+            cm.DeleteTrack(track);
+            Assert.IsNull(cm.RetrieveTrack("Tondo"));
+        }
+
+        [Test]
+        public void CallingDeleteAlbumDeletesAlbum()
+        {
+            cm.AddNewAlbum("Ecstacy");
+            var album = cm.RetrieveAlbum("Ecstacy");
+            cm.DeleteAlbum(album);
+            Assert.IsNull(cm.RetrieveAlbum("Ecstacy"));
+        }
+
+        [Test]
+        public void CallingDeleteArtistDeletesArtist()
+        {
+            cm.AddNewArtist("Disclosure");
+            var artist = cm.RetrieveArtist("Disclosure");
+            cm.DeleteArtist(artist);
+            Assert.IsNull(cm.RetrieveArtist("Disclosure"));
+        }
+
         #endregion
     }
 }
