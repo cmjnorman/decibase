@@ -12,14 +12,14 @@ namespace Decibase_Model
 
             var artist = (Artist)obj;
             if (artist.Name != this.Name) return false;
-            if (artist.Nationality != null && this.Nationality != null && artist.Nationality != this.Nationality) return false;
+            
 
             return true;
         }
 
         public override int GetHashCode()
         {
-            return this.Name.GetHashCode() + this.Nationality.GetHashCode();
+            return this.Name.GetHashCode();
         }
 
         public override string ToString()
