@@ -1,0 +1,131 @@
+﻿<Window x:Class="Decibase_View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Decibase_View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1600" Background="Gray" FontSize="20">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1" Source="C:\Users\cmjno\Documents\GitHub\sparta-projects\Decibase\Decibase\Decibase_View\Decibase.png" />
+            </Grid>
+            <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Artists" FontSize="40" HorizontalAlignment="Center"/>
+                    <ListBox x:Name="ListBoxArtists" Background="Gray" Grid.Row="1" SelectionChanged="ListBoxArtists_SelectionChanged"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Albums" FontSize="40" HorizontalAlignment="Center"/>
+                    <ListBox x:Name="ListBoxAlbums" Background="Gray" Grid.Row="1" SelectionChanged="ListBoxAlbums_SelectionChanged"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Tracks" FontSize="40" HorizontalAlignment="Center"/>
+                    <ListBox x:Name="ListBoxTracks" Background="Gray" Grid.Row="1" SelectionChanged="ListBoxTracks_SelectionChanged"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="OrangeRed" BorderThickness="2">
+            <Grid x:Name="ArtistData">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LabelArtist" Content="Artist:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label x:Name="DataArtist" Grid.Column="1" VerticalAlignment="Center"/>
+            </Grid>
+            </Border>
+            <Border BorderBrush="OrangeRed" Grid.Row="1" BorderThickness="2">
+            <Grid  x:Name="AlbumData">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label x:Name="LabelAlbum" Content="Album:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label x:Name="LabelYear" Content="Year:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label x:Name="DataAlbum" Grid.Column="1" VerticalAlignment="Center"/>
+                <Label x:Name="DataYear" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+            </Grid>
+            </Border>
+            <Border BorderBrush="OrangeRed" Grid.Row="2" BorderThickness="2">
+                <Grid x:Name="TrackData">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="LabelTitle" Content="Title:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="LabelDisc" Content="Disc:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="LabelTrack" Content="Track:" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="LabelGenre" Content="Genre:" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="DataTitle" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="DataDisc" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label x:Name="DataTrack" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+                    <Label x:Name="DataGenre" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ButtonUnselect" Content="Unselect" Background="OrangeRed"  Margin="5" Click="ButtonUnselect_Click"/>
+                <Button x:Name="ButtonAdd" Content="Add Track" Grid.Column="2" Margin="5" Background="OrangeRed" Click="ButtonAdd_Click"/>
+                <Button x:Name="ButtonEdit" Content="Edit" Grid.Column="4" Margin="5" Background="OrangeRed" Click="ButtonEdit_Click"/>
+                <Button x:Name="ButtonDelete" Content="Delete" Grid.Column="6" Margin="5" Background="OrangeRed" Click="ButtonDelete_Click"/>
+            </Grid>  
+        </Grid>
+    </Grid>
+</Window>

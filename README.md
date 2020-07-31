@@ -23,3 +23,4 @@ The goals for this sprint are to complete and write unit tests for the CRUD func
 Once again, not all user stories were marked "done", due to my underestimation of time required for each task. 3 of the 4 CRUD functions were completed, as although it had been working previously, the update functionality was not functioning correctly at the time of the review. The GUI task was pushed back into the third sprint.
 #### Sprint Retrospective
 There were no large blockers in this sprint, a few obstacles here and there but all were overcome quickly. My main takeaway is that things take longer than I expect them to, and so I need to reel in my expectations of what I will manage to successfully implement before the deadline. I think I will be able to produce a functional GUI in the next sprint, allowing me time to polish and (possibly) look at my stretch goal in the fourth and final sprint.
+
