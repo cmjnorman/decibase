@@ -8,7 +8,7 @@ This application will allow users to store and organize metadata for audio files
 
 The application will store the information in a database with linked tables for song, artist and album information. The database table for song information will contain a link to each songs respective audio file, and as a stretch goal will also allow the application to read and write to the id3 tag embedded in the file.
 
-##Database ERD
+## Database ERD
 
 ![ERD](Decibase/Decibase_View/ERD.png?raw=true "Title")
 
@@ -35,7 +35,8 @@ There were no large blockers in this sprint, a few obstacles here and there but 
 The goals for this sprint are to create a Graphical User Interface to encapsulate my database application.
 #### Sprint Review
 This sprint I had more realistic targets for my workload, there was however a couple of small bugs at the time of the review, so there were two user stories that, while being 90% complete were not able to be marked done.
-#### This sprint went pretty smoothly, I didnt have any major problems with the WPF application. I made things quite complicated for myself having loads of popup windows so it took me a while to get them linked up but overall I am pretty happy with my progress. The final sprint will be focused on aesthetics and polish.
+#### Sprint Retrospective
+This sprint went pretty smoothly, I didnt have any major problems with the WPF application. I made things quite complicated for myself having loads of popup windows so it took me a while to get them linked up but overall I am pretty happy with my progress. The final sprint will be focused on aesthetics and polish.
 
 ### Sprint 4
 #### Sprint goals
