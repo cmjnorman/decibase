@@ -1,7 +1,7 @@
 # Decibase
 A music metadata database and tagging application
 
-[](Decibase/Decibase_View/Decibase.png?raw=true "Title")
+![Decibase Logo](Decibase/Decibase_View/Decibase.png?raw=true "Title")
 
 ## Project Overview
 This application will allow users to store and organize metadata for audio files. It will allow users to input information such as song title, artist, album name, genre, track and disk numbers, years, and so on. 
