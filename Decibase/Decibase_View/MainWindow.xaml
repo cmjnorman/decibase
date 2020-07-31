@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Decibase_View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600" Background="Gray" FontSize="20">
+        Title="MainWindow" Height="900" Width="1600" Background="DarkGray" FontSize="20">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -63,8 +63,8 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
-            <Border BorderBrush="OrangeRed" BorderThickness="2">
-            <Grid x:Name="ArtistData">
+            <Border BorderBrush="Gray" BorderThickness="1" x:Name="ArtistData">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition/>
@@ -73,8 +73,8 @@
                 <Label x:Name="DataArtist" Grid.Column="1" VerticalAlignment="Center"/>
             </Grid>
             </Border>
-            <Border BorderBrush="OrangeRed" Grid.Row="1" BorderThickness="2">
-            <Grid  x:Name="AlbumData">
+            <Border BorderBrush="Gray" Grid.Row="1" BorderThickness="1" x:Name="AlbumData">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition/>
@@ -89,8 +89,8 @@
                 <Label x:Name="DataYear" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
             </Grid>
             </Border>
-            <Border BorderBrush="OrangeRed" Grid.Row="2" BorderThickness="2">
-                <Grid x:Name="TrackData">
+            <Border BorderBrush="Gray" Grid.Row="2" BorderThickness="1" x:Name="TrackData">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition/>
