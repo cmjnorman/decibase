@@ -1,0 +1,83 @@
+﻿<Window x:Class="Decibase_View.TrackDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Decibase_View"
+        mc:Ignorable="d"
+        Title="TrackDialog" SizeToContent="Height" Width="500" Background="Gray">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Title*:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxTitle" Grid.Column="1"  Margin="5" VerticalContentAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Disc:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxDisc" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+            <Label Content="/" Grid.Column="2" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxTotalDiscs" Grid.Column="3" Margin="5" VerticalContentAlignment="Center"/>
+            <Label Content="Track:" Grid.Column="4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxTrack" Grid.Column="5" Margin="5" VerticalContentAlignment="Center"/>
+            <Label Content="/" Grid.Column="6" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxTotalTracks" Grid.Column="7" Margin="5" VerticalContentAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Genre:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxGenre" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+            <Label Content="Album*:" Grid.Column="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxAlbum" Grid.Column="3" Margin="5" VerticalContentAlignment="Center"/>
+            <Label Content="Year:" Grid.Column="4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TextBoxYear" Grid.Column="5" Margin="5" VerticalContentAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Artist(s)*:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBlock x:Name="TextBlockArtists" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+            <Button x:Name="ButtonAdd" Background="OrangeRed" Content="+" Grid.Column="2" Margin="5" Click="ButtonAdd_Click" />
+            <Button x:Name="ButtonRemove" Background="OrangeRed" Content="-" Grid.Column="3" Margin="5" Click="ButtonRemove_Click" />
+        </Grid>
+        <Grid Grid.Row="4" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ButtonCancel" Background="OrangeRed" Content="Cancel" Grid.Column="0" Margin="5" Click="ButtonCancel_Click" />
+            <Button x:Name="ButtonDone" Background="OrangeRed" Content="Done" Grid.Column="3"  Margin="5" Click="ButtonDone_Click" />
+        </Grid>
+    </Grid>
+</Window>

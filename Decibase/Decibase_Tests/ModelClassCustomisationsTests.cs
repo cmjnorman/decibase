@@ -49,37 +49,6 @@ namespace Decibase_Tests
         #endregion
 
         #region ArtistTests
-        [Test]
-        public void ArtistsWithSameNameAndNationalityAreEqual()
-        {
-            var artist1 = new Artist { Name = "Noisia", Nationality = "Dutch" };
-            var artist2 = new Artist { Name = "Noisia", Nationality = "Dutch" };
-            Assert.AreEqual(artist1, artist2);
-        }
-
-        [Test]
-        public void ArtistsWithSameNameAndDifferentNationalityAreNotEqual()
-        {
-            var artist1 = new Artist { Name = "Noisia", Nationality = "Dutch" };
-            var artist2 = new Artist { Name = "Noisia", Nationality = "German" };
-            Assert.AreNotEqual(artist1, artist2);
-        }
-
-        [Test]
-        public void ArtistsWithSameNameAndOneWithNullNationalityAreEqual()
-        {
-            var artist1 = new Artist { Name = "Noisia", Nationality = "Dutch" };
-            var artist2 = new Artist { Name = "Noisia" };
-            Assert.AreEqual(artist1, artist2);
-        }
-
-        [Test]
-        public void ArtistsWithSameNameAndBothWithNullNationalityAreEqual()
-        {
-            var artist1 = new Artist { Name = "Noisia" };
-            var artist2 = new Artist { Name = "Noisia" };
-            Assert.AreEqual(artist1, artist2);
-        }
 
         [Test]
         public void ArtistsWithDifferentNameAreNotEqual()
@@ -94,7 +63,7 @@ namespace Decibase_Tests
         [Test]
         public void TracksWithSameNameAlbumAndArtistAreEqual()
         {
-            var artist = new Artist { Name = "Caravan Palace", Nationality = "French" };
+            var artist = new Artist { Name = "Caravan Palace" };
             var album = new Album { Title = "Panic", Year = "2012" };
             var track1 = new Track { Title = "Cotton Heads", Album = album };
             var track2 = new Track { Title = "Cotton Heads", Album = album };
@@ -108,8 +77,8 @@ namespace Decibase_Tests
         [Test]
         public void TracksWithSameNameAlbumAndDifferentArtistAreNotEqual()
         {
-            var artist1 = new Artist { Name = "Caravan Palace", Nationality = "French" };
-            var artist2 = new Artist { Name = "Parov Stellar", Nationality = "French" };
+            var artist1 = new Artist { Name = "Caravan Palace" };
+            var artist2 = new Artist { Name = "Parov Stellar" };
             var album = new Album { Title = "Panic", Year = "2012" };
             var track1 = new Track { Title = "Cotton Heads", Album = album };
             var track2 = new Track { Title = "Cotton Heads", Album = album };
@@ -123,7 +92,7 @@ namespace Decibase_Tests
         [Test]
         public void TracksWithSameNameArtistAndDifferentAlbumAreNotEqual()
         {
-            var artist = new Artist { Name = "Caravan Palace", Nationality = "French" };
+            var artist = new Artist { Name = "Caravan Palace" };
             var album1 = new Album { Title = "Panic", Year = "2012" };
             var album2 = new Album { Title = "Chronologic", Year = "2019" };
             var track1 = new Track { Title = "Cotton Heads", Album = album1 };
@@ -147,7 +116,7 @@ namespace Decibase_Tests
         [Test]
         public void TracksWithSameNameArtistAndNullAlbumAreEqual()
         {
-            var artist = new Artist { Name = "Caravan Palace", Nationality = "French" };
+            var artist = new Artist { Name = "Caravan Palace" };
             var track1 = new Track { Title = "Cotton Heads" };
             var track2 = new Track { Title = "Cotton Heads" };
             var trackArtistJunction1 = new TrackArtist_Junction { Track = track1, Artist = artist };

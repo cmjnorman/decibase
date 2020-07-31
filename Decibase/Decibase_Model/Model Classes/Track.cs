@@ -8,8 +8,8 @@ namespace Decibase_Model
     {
         public int TrackId { get; set; }
         public string Title { get; set; }
-        public int TrackNumber { get; set; }
-        public int DiscNumber { get; set; }
+        public string TrackNumber { get; set; }
+        public string DiscNumber { get; set; }
         public string Genre { get; set; }
 
         public int AlbumId { get; set; }
