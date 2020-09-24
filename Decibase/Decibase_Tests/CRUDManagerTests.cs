@@ -13,26 +13,40 @@ namespace Decibase_Tests
         private CRUDManager cm = new CRUDManager();
 
         //#region CreateTests
-        //[Test]
-        //public void CallingAddNewTrackAddsTrackToDatabase()
-        //{
-        //    var newTrack = new Track { Title = "Lush1" };
-        //    using (var db = new DecibaseContext())
-        //    {
-        //        //Delete pre-exisiting instance of track (if it exists)
-        //        var dbTrack = db.Tracks.FirstOrDefault(a => a.Title == newTrack.Title);
-        //        if (dbTrack != null)
-        //        {
-        //            db.Tracks.Remove(dbTrack);
-        //            db.SaveChanges();
-        //        }
+        [Test]
+        public void CallingAddNewTrackAddsTrackToDatabase()
+        {
+            var numTracksBefore = cm.RetrieveAllTrackTitles().Count;
+            cm.AddNewTrack("track", "album");
+            var numTracksAfter = cm.RetrieveAllTrackTitles().Count;
+            Assert.IsTrue(numTracksAfter == numTracksBefore + 1);
+            cm.DeleteTrack("track");
+        }
 
-        //        var numTracksBefore = db.Tracks.Count();
-        //        cm.AddNewTrack("Lush1", "New Energy");
-        //        var numTracksAfter = db.Tracks.Count();
-        //        Assert.IsTrue(numTracksAfter == numTracksBefore + 1);
-        //    }
-        //}
+        [Test]
+        public void CallingAddNewAlbumAddsAlbumToDatabase()
+        {
+            var numAlbumsBefore = cm.RetrieveAllAlbumTitles().Count;
+            cm.AddNewAlbum("album");
+            var numAlbumsAfter = cm.RetrieveAllAlbumTitles().Count;
+            Assert.IsTrue(numAlbumsAfter == numAlbumsBefore + 1);
+            cm.DeleteAlbum("album");
+        }
+
+
+        [Test]
+        public void CallingAddNewArtistAddsArtistToDatabase()
+        {
+            var numArtistsBefore = cm.RetrieveAllArtistNames().Count;
+            cm.AddNewArtist("artist");
+            var numArtistsAfter = cm.RetrieveAllArtistNames().Count;
+            Assert.IsTrue(numArtistsAfter == numArtistsBefore + 1);
+            cm.DeleteArtist("artist");
+        }
+
+
+
+
 
         //[Test]
         //public void IfTrackAlreadyExisitsCallingAddNewTrackDoesNotAddTrackToDatabase()

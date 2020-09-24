@@ -41,31 +41,43 @@ namespace Decibase_View
 
         public void ShowAllArtists()
         {
-            ListBoxArtists.ItemsSource = cm.RetrieveAllArtistNames();
+            var artists = cm.RetrieveAllArtistNames();
+            artists.Sort();
+            ListBoxArtists.ItemsSource = artists;
         }
 
         public void ShowAllAlbums()
         {
-            ListBoxAlbums.ItemsSource = cm.RetrieveAllAlbumTitles();
+            var albums = cm.RetrieveAllAlbumTitles();
+            albums.Sort();
+            ListBoxAlbums.ItemsSource = albums;
         }
         public void ShowArtistAlbums(string artistName)
         {
-            ListBoxAlbums.ItemsSource = cm.RetrieveArtistAlbumTitles(artistName);
+            var albums = cm.RetrieveArtistAlbumTitles(artistName);
+            albums.Sort();
+            ListBoxAlbums.ItemsSource = albums;
         }
 
         public void ShowAllTracks()
         {
-            ListBoxTracks.ItemsSource = cm.RetrieveAllTrackTitles();
+            var tracks = cm.RetrieveAllTrackTitles();
+            tracks.Sort();
+            ListBoxTracks.ItemsSource = tracks;
         }
 
         public void ShowArtistTracks(string artistName)
         {
-            ListBoxTracks.ItemsSource = cm.RetrieveArtistTrackTitles(artistName);
+            var tracks = cm.RetrieveArtistTrackTitles(artistName);
+            tracks.Sort();
+            ListBoxTracks.ItemsSource = tracks;
         }
 
         public void ShowAlbumTracks(string albumTitle)
         {
-            ListBoxTracks.ItemsSource = cm.RetrieveAlbumTrackTitles(albumTitle);
+            var tracks = cm.RetrieveAlbumTrackTitles(albumTitle);
+            tracks.Sort();
+            ListBoxTracks.ItemsSource = tracks;
         }
 
         public void DisplayArtistInformation(string artistName)
