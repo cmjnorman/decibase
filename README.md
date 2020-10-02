@@ -12,9 +12,10 @@ The application will store the information in a database with linked tables for 
 
 ![ERD](Decibase/Decibase_View/ERD.png?raw=true "Title")
 
-## Main Window
+## Screenshots
 
-![MainWindow](Decibase/Decibase_View/MainWindow.png?raw=true "Title")
+![MainWindow](Decibase/Decibase_View/DecibaseMainWindow.png?raw=true "Title")
+![AddTrack](Decibase/Decibase_View/DecibaseAddTrack.png?raw=true "Title")
 
 ## Sprint Breakdown
 
