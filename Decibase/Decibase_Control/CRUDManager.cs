@@ -458,6 +458,12 @@ namespace Decibase_Control
                 {
                     DeleteTrack(track);
                 }
+                if (albumTracks.Count == 0)
+                {
+                    var album = db.Albums.First(a => a.Title == albumTitle);
+                    db.Remove(album);
+                    db.SaveChanges();
+                }
             }
             SelectedAlbum = "";
         }

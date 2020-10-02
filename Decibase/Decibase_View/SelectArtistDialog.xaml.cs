@@ -22,7 +22,9 @@ namespace Decibase_View
         {
             InitializeComponent();
             var artistList = new List<string>() { "New Artist..." };
-            artistList.AddRange(((MainWindow)Application.Current.MainWindow).cm.RetrieveAllArtistNames());
+            var artists = (((MainWindow)Application.Current.MainWindow).cm.RetrieveAllArtistNames());
+            artists.Sort();
+            artistList.AddRange(artists);
             ComboBoxArtist.ItemsSource = artistList;
         }
 
